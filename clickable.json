@@ -1,5 +1,6 @@
 {
-  "template": "qmake",
+  "builder": "qmake",
+  "clickable_minimum_required": "8.4",
   "default": "clean build click-build",
   "kill": "qmlcreator",
   "build_args": [
