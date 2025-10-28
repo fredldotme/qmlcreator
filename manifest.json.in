@@ -1,7 +1,7 @@
 {
     "name": "me.fredl.qmlcreator",
     "title": "QML Creator",
-    "version": "1.4.3",
+    "version": "1.4.4",
     "description": "A simple and lightweight IDE for projects based on QML & JavaScript",
     "architecture": "@CLICK_ARCH@",
     "framework": "@CLICK_FRAMEWORK@",
