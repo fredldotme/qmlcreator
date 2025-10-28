@@ -51,7 +51,7 @@ BlankScreen {
         ListElement { module: "QtBluetooth";             version: ""; status: 0; testComponent: "Bluetooth.qml" }
         ListElement { module: "QtNfc";                   version: ""; status: 0; testComponent: "Nfc.qml" }
         ListElement { module: "QtWebSockets";            version: ""; status: 0; testComponent: "WebSockets.qml" }
-        ListElement { module: "QtWebView";               version: ""; status: 0; testComponent: "WebView.qml" }
+        //ListElement { module: "QtWebView";               version: ""; status: 0; testComponent: "WebView.qml" }
 
         ListElement { module: "Qt3D.Core";               version: ""; status: 0; testComponent: "3D.qml" }
         ListElement { module: "Qt3D.Input";              version: ""; status: 0; testComponent: "3DInput.qml" }
