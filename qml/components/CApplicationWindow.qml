@@ -82,7 +82,7 @@ ApplicationWindow {
         id: settings
 
         // configurable
-        property string font: "Lomiri Mono"
+        property string font: "Ubuntu Mono"
         property int fontSize: 20
         property string palette: "Cute"
         property int indentSize: 4
@@ -164,7 +164,7 @@ ApplicationWindow {
 
     property ListModel editorFonts: ListModel {
         ListElement {
-            name: "Lomiri Mono"
+            name: "Ubuntu Mono"
             source: "../../resources/fonts/editor/ubuntumono.ttf"
         }
 
