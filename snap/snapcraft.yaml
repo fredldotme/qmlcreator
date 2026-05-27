@@ -3,7 +3,7 @@ version: 1.4.0
 summary: A lightweight QML IDE
 description: |
   QML Creator is a simple and lightweight IDE for projects based on QML & JavaScript.
-  
+
   Features:
     - Responsive interface
     - Simple project layout style
@@ -13,22 +13,50 @@ description: |
 
 confinement: strict
 icon: resources/images/icon512.png
-base: core18
+base: core24
+
+platforms:
+  amd64:
+  arm64:
+  armhf:
 
 apps:
   qmlcreator:
-    environment:
-      QT_PLUGIN_PATH: ${SNAP}/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/qt5/plugins
-      QML2_IMPORT_PATH: ${SNAP}/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/qt5/qml
-    command: desktop-launch qmlcreator
-    plugs: [ x11, wayland, desktop, desktop-legacy, opengl, alsa, pulseaudio, home, removable-media, network, network-bind ]
+    command-chain:
+      - bin/gpu-2404-wrapper
+      - bin/lomiri-launch
+    command: usr/bin/qmlcreator
+    plugs: [ x11, wayland, desktop, desktop-legacy, opengl, alsa, pulseaudio, home, removable-media, network, network-bind, maliit ]
+
+plugs:
+  lomiri-ui-toolkit:
+    interface: content
+    target: $SNAP/lomiri-ui-toolkit
+    default-provider: lomiri-ui-toolkit-core24
+  gpu-2404:
+    interface: content
+    target: $SNAP/gpu-2404
+    default-provider: mesa-2404
+
+layout:
+  /usr/share/X11/xkb:
+    symlink: $SNAP/lomiri-ui-toolkit/usr/share/X11/xkb
+  /usr/share/icons:
+    bind: $SNAP/lomiri-ui-toolkit/usr/share/icons
+  /usr/share/sounds:
+    bind: $SNAP/usr/share/sounds
 
 parts:
   qmlcreator:
     source: .
+    build-snaps:
+      - lomiri-ui-toolkit-core24
     plugin: qmake
-    qt-version: qt5
-    project-files: ['qmlcreator.pro']
+    qmake-project-file: qmlcreator.pro
+    override-prime: |
+      craftctl default
+      mkdir -p $CRAFT_PRIME/bin
+      cp -a /snap/lomiri-ui-toolkit-core24/current/command-chain/lomiri-launch ${CRAFT_PRIME}/bin/lomiri-launch
     build-packages:
       - qt5-qmake
       - qttools5-dev
@@ -45,178 +73,13 @@ parts:
       - qt3d5-dev
       - libqt5websockets5-dev
       - libqt5sensors5-dev
-      - qml-module-qt3d
-      - qml-module-qtnfc
-      - qml-module-qtquick-scene2d
-      - qml-module-qtaudioengine
-      - qml-module-qtorganizer
-      - qml-module-qtquick-scene3d
-      - qml-module-qtav
-      - qml-module-qtpositioning
-      - qml-module-qtquick-templates2
-      - qml-module-qtbluetooth
-      - qml-module-qtqml-models2
-      - qml-module-qtquick-virtualkeyboard
-      - qml-module-qtcharts
-      - qml-module-qtqml-statemachine
-      - qml-module-qtquick-window2
-      - qml-module-qtcontacts
-      - qml-module-qtquick2
-      - qml-module-qtquick-xmllistmodel
-      - qml-module-qtgraphicaleffects
-      - qml-module-qtquick-controls
-      - qml-module-qtsensors
-      - qml-module-qtgstreamer
-      - qml-module-qtquick-controls2
-      - qml-module-qttest
-      - qml-module-qt-labs-calendar
-      - qml-module-qtquick-controls-styles-breeze
-      - qml-module-qtwayland-compositor
-      - qml-module-qt-labs-folderlistmodel
-      - qml-module-qtquick-dialogs
-      - qml-module-qtwebchannel
-      - qml-module-qt-labs-platform
-      - qml-module-qtquick-extras
-      - qml-module-qt-labs-settings
-      - qml-module-qtquick-layouts
-      - qml-module-qtwebkit
-      - qml-module-qt-labs-sharedimage
-      - qml-module-qtquick-localstorage
-      - qml-module-qtwebsockets
-      - qml-module-qtlocation
-      - qml-module-qtquick-particles2
-      - qml-module-qt-websockets
-      - qml-module-qtmultimedia
-      - qml-module-qtquick-privatewidgets
-    stage-packages:
-      - dbus-x11
-      - qml-module-qt3d
-      - qml-module-qtnfc
-      - qml-module-qtquick-scene2d
-      - qml-module-qtaudioengine
-      - qml-module-qtorganizer
-      - qml-module-qtquick-scene3d
-      - qml-module-qtav
-      - qml-module-qtpositioning
-      - qml-module-qtquick-templates2
-      - qml-module-qtbluetooth
-      - qml-module-qtqml-models2
-      - qml-module-qtquick-virtualkeyboard
-      - qml-module-qtcharts
-      - qml-module-qtqml-statemachine
-      - qml-module-qtquick-window2
-      - qml-module-qtcontacts
-      - qml-module-qtquick2
-      - qml-module-qtquick-xmllistmodel
-      - qml-module-qtgraphicaleffects
-      - qml-module-qtquick-controls
-      - qml-module-qtsensors
-      - qml-module-qtgstreamer
-      - qml-module-qtquick-controls2
-      - qml-module-qttest
-      - qml-module-qt-labs-calendar
-      - qml-module-qtquick-controls-styles-breeze
-      - qml-module-qtwayland-compositor
-      - qml-module-qt-labs-folderlistmodel
-      - qml-module-qtquick-dialogs
-      - qml-module-qtwebchannel
-      - qml-module-qt-labs-platform
-      - qml-module-qtquick-extras
-      - qml-module-qt-labs-settings
-      - qml-module-qtquick-layouts
-      - qml-module-qtwebkit
-      - qml-module-qt-labs-sharedimage
-      - qml-module-qtquick-localstorage
-      - qml-module-qtwebsockets
-      - qml-module-qtlocation
-      - qml-module-qtquick-particles2
-      - qml-module-qt-websockets
-      - qml-module-qtmultimedia
-      - qml-module-qtquick-privatewidgets
-    after: [ desktop-qt5 ]
-  env:
-    plugin: nil
-    stage-packages:
-      - libqt5gui5
-      - libqt5qml5
-      - libqt5quick5
-      - libqt5widgets5
-      - libqt5network5
-      - libqt5multimedia5
-      - libqt5webkit5
-      - libqt5multimediawidgets5
-      - libqt5multimedia5-plugins
-      - libqt5svg5
-      - libqt5xml5
-      - libqt5xmlpatterns5
-      - libqt5printsupport5
-      - libqt5sql5-sqlite
-      - libqt5waylandclient5
-      - qml-module-qt3d
-      - qml-module-qtnfc
-      - qml-module-qtquick-scene2d
-      - qml-module-qtaudioengine
-      - qml-module-qtorganizer
-      - qml-module-qtquick-scene3d
-      - qml-module-qtav
-      - qml-module-qtpositioning
-      - qml-module-qtquick-templates2
-      - qml-module-qtbluetooth
-      - qml-module-qtqml-models2
-      - qml-module-qtquick-virtualkeyboard
-      - qml-module-qtcharts
-      - qml-module-qtqml-statemachine
-      - qml-module-qtquick-window2
-      - qml-module-qtcontacts
-      - qml-module-qtquick2
-      - qml-module-qtquick-xmllistmodel
-      - qml-module-qtgraphicaleffects
-      - qml-module-qtquick-controls
-      - qml-module-qtsensors
-      - qml-module-qtgstreamer
-      - qml-module-qtquick-controls2
-      - qml-module-qttest
-      - qml-module-qt-labs-calendar
-      - qml-module-qtquick-controls-styles-breeze
-      - qml-module-qtwayland-compositor
-      - qml-module-qt-labs-folderlistmodel
-      - qml-module-qtquick-dialogs
-      - qml-module-qtwebchannel
-      - qml-module-qt-labs-platform
-      - qml-module-qtquick-extras
-      - qml-module-qt-labs-settings
-      - qml-module-qtquick-layouts
-      - qml-module-qtwebkit
-      - qml-module-qt-labs-sharedimage
-      - qml-module-qtquick-localstorage
-      - qml-module-qtwebsockets
-      - qml-module-qtlocation
-      - qml-module-qtquick-particles2
-      - qml-module-qt-websockets
-      - qml-module-qtmultimedia
-      - qml-module-qtquick-privatewidgets
-      - qtwayland5
-    after: [ qmlcreator ]
-  desktop-qt5:
-    build-packages:
-      - qtbase5-dev
-      - dpkg-dev
-    make-parameters:
-      - FLAVOR=qt5
-    plugin: make
-    source: https://github.com/ubuntu/snapcraft-desktop-helpers.git
-    source-subdir: qt
-    stage-packages:
-      - libxkbcommon0
-      - ttf-ubuntu-font-family
-      - dmz-cursor-theme
-      - light-themes
-      - adwaita-icon-theme
-      - gnome-themes-standard
-      - shared-mime-info
-      - libqt5gui5
-      - libgdk-pixbuf2.0-0
-      - libqt5svg5
-      - locales-all
-      - xdg-user-dirs
-
+  gpu-2404:
+    after:
+      - qmlcreator
+    source: https://github.com/canonical/gpu-snap.git
+    plugin: dump
+    override-prime: |
+      craftctl default
+      ${CRAFT_PART_SRC}/bin/gpu-2404-cleanup mesa-2404
+    prime:
+      - bin/gpu-2404-wrapper
