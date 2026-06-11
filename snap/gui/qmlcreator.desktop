@@ -9,3 +9,4 @@ Categories=Development;IDE;
 Terminal=false
 StartupNotify=true
 Keywords=QMLCreator;QML;IDE
+X-Lomiri-Touch=true
