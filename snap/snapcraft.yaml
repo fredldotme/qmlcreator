@@ -26,7 +26,22 @@ apps:
       - bin/gpu-2404-wrapper
       - bin/lomiri-launch
     command: usr/bin/qmlcreator
-    plugs: [ x11, wayland, desktop, desktop-legacy, opengl, alsa, pulseaudio, home, removable-media, network, network-bind, maliit ]
+    plugs:
+      - x11
+      - wayland
+      - mir
+      - desktop
+      - opengl
+      - alsa
+      - pulseaudio
+      - home
+      - removable-media
+      - network
+      - network-bind
+      - maliit
+      - media-hub
+      - location-observe
+      - screen-inhibit-control
 
 plugs:
   lomiri-ui-toolkit:
