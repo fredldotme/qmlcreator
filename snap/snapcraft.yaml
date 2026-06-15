@@ -1,5 +1,5 @@
 name: qmlcreator
-version: 1.4.0
+version: 1.5.0
 summary: A lightweight QML IDE
 description: |
   QML Creator is a simple and lightweight IDE for projects based on QML & JavaScript.
