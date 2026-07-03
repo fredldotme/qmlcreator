@@ -42,6 +42,7 @@ apps:
       - media-hub
       - location-observe
       - screen-inhibit-control
+      - camera
 
 plugs:
   lomiri-ui-toolkit:
