@@ -40,7 +40,8 @@ apps:
       - network-bind
       - maliit
       - media-hub
-      - location-observe
+      # TODO: re-enable once snapd succeeds in creating an /etc/dbus-1/system.d policy:
+      # - location-observe
       - screen-inhibit-control
       - camera
 
@@ -60,7 +61,7 @@ layout:
   /usr/share/icons:
     bind: $SNAP/lomiri-ui-toolkit/usr/share/icons
   /usr/share/sounds:
-    bind: $SNAP/usr/share/sounds
+    bind: $SNAP/lomiri-ui-toolkit/usr/share/sounds
 
 parts:
   qmlcreator:
